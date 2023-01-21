@@ -101,13 +101,84 @@
 
 -- Drop existing tables, so you'll start fresh each time this script is run.
 -- TODO!
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS studios;
+DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS actors;
+
+
 
 -- Create new tables, according to your domain model
 -- TODO!
 
+CREATE TABLE movies (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT,
+  year_released INTEGER,
+  mpaa_rating TEXT,
+  studios_id INTEGER
+);
+
+CREATE TABLE studios (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  location TEXT
+);
+
+CREATE TABLE casts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  character_name TEXT,
+  actors_id INTEGER,
+  movies_id
+
+);
+
+CREATE TABLE actors (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  age INTEGER
+
+);
 -- Insert data into your database that reflects the sample data shown above
 -- Use hard-coded foreign key IDs when necessary
 -- TODO!
+INSERT INTO studios (name, location) VALUES 
+('Warner Bros.', 'USA');
+
+INSERT INTO movies (title, year_released, mpaa_rating, studios_id) VALUES 
+('Batman Begins', 2005, 'PG-13', 1), 
+('The Dark Knight', 2008, 'PG-13', 1),
+('The Dark Knight Rises', 2012, 'PG-13', 1);
+
+INSERT INTO actors (name) VALUES 
+('Christian Bale'), 
+('Michael Cane'),
+("Liam Neeson"),
+('Katie Holmes'),
+('Heath Ledger'),
+('Aaron Eckhart'),
+('Michael Cane'),
+('Maggie Gyllenhaal'),
+('Tom Hardy'),
+('Joseph Gordon-Levitt'),
+('Anne Hathaway');
+
+INSERT INTO casts (character_name, actors_id, movies_id) VALUES 
+('Bruce Wayne', 1, 1),
+('Bruce Wayne', 1, 2),
+('Bruce Wayne', 1, 3), 
+('Alfred', 2, 1),
+('Alfred', 2, 2),
+("Ra's Al Ghul", 3, 1)
+('Rachel Dawes', 4,1)
+('Commissioner Gordon', 5)
+('Joker')
+('Harvey Dent')
+('Bane')
+('John Blake')
+('Selina Kyle');
+
+
 
 -- Prints a header for the movies output
 .print "Movies"
@@ -116,6 +187,7 @@
 
 -- The SQL statement for the movies output
 -- TODO!
+SELECT title, year_released, mpaa_rating, studios_id FROM movies;
 
 -- Prints a header for the cast output
 .print ""
