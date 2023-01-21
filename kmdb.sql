@@ -103,7 +103,7 @@
 -- TODO!
 DROP TABLE IF EXISTS movies;
 DROP TABLE IF EXISTS studios;
-DROP TABLE IF EXISTS casts;
+DROP TABLE IF EXISTS cast;
 DROP TABLE IF EXISTS actors;
 
 
@@ -125,11 +125,11 @@ CREATE TABLE studios (
   location TEXT
 );
 
-CREATE TABLE casts (
+CREATE TABLE cast (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  character_name TEXT,
+  character TEXT,
   actors_id INTEGER,
-  movies_id
+  movies_id INTEGER
 
 );
 
@@ -155,6 +155,7 @@ INSERT INTO actors (name) VALUES
 ('Michael Cane'),
 ("Liam Neeson"),
 ('Katie Holmes'),
+('Gary Oldman'),
 ('Heath Ledger'),
 ('Aaron Eckhart'),
 ('Michael Cane'),
@@ -163,20 +164,21 @@ INSERT INTO actors (name) VALUES
 ('Joseph Gordon-Levitt'),
 ('Anne Hathaway');
 
-INSERT INTO casts (character_name, actors_id, movies_id) VALUES 
-('Bruce Wayne', 1, 1),
-('Bruce Wayne', 1, 2),
-('Bruce Wayne', 1, 3), 
-('Alfred', 2, 1),
-('Alfred', 2, 2),
-("Ra's Al Ghul", 3, 1)
-('Rachel Dawes', 4,1)
-('Commissioner Gordon', 5)
-('Joker')
-('Harvey Dent')
-('Bane')
-('John Blake')
-('Selina Kyle');
+INSERT INTO cast (character,actors_id,movies_id) VALUES 
+('Bruce Wayne',1,1),
+('Bruce Wayne',1,2),
+('Bruce Wayne',1,3), 
+('Alfred',2,1),
+('Alfred',2,2),
+('Ras Al Ghul',3,1),
+('Rachel Dawes',4,1),
+('Commissioner Gordon',5,1),
+('Commissioner Gordon',5,3),
+('Joker',6,2),
+('Harvey Dent',7,2),
+('Bane',8,3),
+('John Blake',9,3),
+('Selina Kyle',10,3);
 
 
 
@@ -187,7 +189,9 @@ INSERT INTO casts (character_name, actors_id, movies_id) VALUES
 
 -- The SQL statement for the movies output
 -- TODO!
-SELECT title, year_released, mpaa_rating, studios_id FROM movies;
+
+SELECT movies.title, movies.year_released, movies.mpaa_rating, studios.name FROM movies INNER JOIN studios ON studios.id = movies.studios_id;
+
 
 -- Prints a header for the cast output
 .print ""
@@ -198,3 +202,4 @@ SELECT title, year_released, mpaa_rating, studios_id FROM movies;
 
 -- The SQL statement for the cast output
 -- TODO!
+SELECT movies.title, cast.character FROM movies INNER JOIN cast ON movies.id = cast.movies_id;
